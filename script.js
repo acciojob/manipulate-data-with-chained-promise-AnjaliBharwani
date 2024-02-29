@@ -1,32 +1,44 @@
-//your JS code here. If required.
-//your JS code here. If required.
-// script.js
+function oddNumber(){
+    const arr = [1, 2, 3, 4, 8];
+    let oddArr= [];
+    //console.log(arr)
+    return new Promise((resolve, reject)=>{
+        for(let i=0; i<arr.length; i++){
+            if(arr[i] % 2 != 0){
+                oddArr.push(arr[i])
+            }
+        }
+        setTimeout(()=>{
+            //console.log(new Date)
+            document.querySelector("#output").innerText=oddArr;
+            resolve(arr)
+        }, 1000)
+    });
+}
+function multiplyEven(arr){
+    let evenArr= [];
+    return new Promise((resolve, reject)=>{
+        for(let i=0; i<arr.length; i++){
+            if(arr[i] % 2 === 0){
+                evenArr.push(arr[i]);
+            }
+        }
+        setTimeout(()=>{
+            //console.log(new Date)
+            document.querySelector("#output").innerText=evenArr;
+            resolve(evenArr)
+        }, 2000)
 
-document.getElementById("myForm").addEventListener("submit", function (event) {
-  event.preventDefault();
+    })
+}
 
-  const ageInput = document.getElementById("age");
-  const nameInput = document.getElementById("name");
-
-  const age = parseInt(ageInput.value);
-  const name = nameInput.value;
-
-  if (!age || !name) {
-    alert("Please fill in all the fields.");
-    return;
-  }
-
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (age >= 18) {
-        resolve(`Welcome, ${name}. You can vote.`);
-      } else {
-        reject(`Oh sorry ${name}. You aren't old enough.`);
-      }
-    }, 4000);
-  });
-
-  promise
-    .then((message) => alert(message))
-    .catch((message) => alert(message));
-});
+oddNumber()
+    .then((arr)=>{
+        return multiplyEven(arr)
+    })
+    .then((evenArr)=>{
+        //console.log(new Date)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
