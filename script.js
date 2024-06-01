@@ -1,44 +1,31 @@
-function oddNumber(){
-    const arr = [1, 2, 3, 4, 8];
-    let oddArr= [];
-    //console.log(arr)
-    return new Promise((resolve, reject)=>{
-        for(let i=0; i<arr.length; i++){
-            if(arr[i] % 2 != 0){
-                oddArr.push(arr[i])
-            }
-        }
-        setTimeout(()=>{
-            //console.log(new Date)
-            document.querySelector("#output").innerText=oddArr;
-            resolve(arr)
-        }, 1000)
-    });
-}
-function multiplyEven(arr){
-    let evenArr= [];
-    return new Promise((resolve, reject)=>{
-        for(let i=0; i<arr.length; i++){
-            if(arr[i] % 2 === 0){
-                evenArr.push(arr[i]);
-            }
-        }
-        setTimeout(()=>{
-            //console.log(new Date)
-            document.querySelector("#output").innerText=evenArr;
-            resolve(evenArr)
-        }, 2000)
-
-    })
+//your JS code here. If required.
+const ouput = document.getElementById('output');
+let arr = [1, 2, 3, 4];
+function promise(arr, time) {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(arr);
+		}, time);
+	});
 }
 
-oddNumber()
-    .then((arr)=>{
-        return multiplyEven(arr)
-    })
-    .then((evenArr)=>{
-        //console.log(new Date)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+promise(arr, 3000)
+.then((res) =>{
+	const even = res.filter((num) =>{
+		return num % 2 === 0;
+	});
+	return promise(even, 1000);
+})
+.then((res) =>{
+	ouput.innerText = res;
+	const multi = res.map((num) =>{
+		return num * 2;
+	});
+	return promise(multi, 2000);
+})
+.then((res)=>{
+	ouput.innerText = res;
+})
+.catch((error)=>{
+	console.log(error);
+});
